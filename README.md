@@ -1,15 +1,35 @@
 # yandex-afisha-clone
 
+Это backend часть для [frontend](https://github.com/devmanorg/where-to-go-frontend/).
+
 ## Установка
+
+Требуется [Python](https://www.python.org/downloads/) версии 3.7 или выше и установленный [pip](https://pip.pypa.io/en/stable/getting-started/). Для установки необходимых зависимостей используйте команду:  
+1. Для Unix/macOs:
+```commandline
+python -m pip install -r requirements.txt
+```
+2. Для Windows:
+```commandline
+py -m pip download --destination-directory DIR -r requirements.txt
+```
 
 В конце сгенерируёте секретный ключ `secret_key`, в котором будет не меньше 50 символов и не меньше 5 уникальных символов, создайте локальную переменную командой `SECRET_KEY="secret_key"` и экспортируёте его во внешнее пространство командой: `export SECRET_KEY`.
 
 ## Пройстой запуск
 
-Чтобы запустить backend для его проверки нужно:
-1. положить все статичные файлы (весь frontend со стартовой страницей) в директорию `static`,
-2. создать директорию `media` в корне проекта,
-3. находясь в корневой директории запустить backend командой: `python3 manage.py runserver --insecure`.
+Чтобы запустить backend нужно:
+1. положить все статичные файлы (весь [frontend](https://github.com/devmanorg/where-to-go-frontend/)) в директорию `static`,
+2. создайте директорию `media` в корне проекта,
+3. находясь в корневой директории запустить backend командой: `python3 manage.py runserver --insecure`,
+4. перейдите на сайт http://127.0.0.1:8000/
+
+Для работы с БД:
+1. создате суперпользователя командой `python manage.py createsuperuser`,
+2. пройдите все шаги,
+3. запустите сервер `python3 manage.py runserver --insecure`,
+4. перейдите на сайт http://127.0.0.1:8000/admin
+5. войдите под своими установленными логином и паролем
 
 ## Параметры для дальнейшего развёртывания
 
@@ -24,3 +44,7 @@
 8. `CSRF_COOKIE_SECURE` - установить любое значение чтобы установить в `True`, иначе будет установлено в `False`.
 
 Другие настройки смотрите в [документации](https://docs.djangoproject.com/en/4.2/ref/settings/).
+
+## Цели проекта
+
+Код написан в учебных целях — это урок в курсе по Python и веб-разработке на сайте [Devman](https://dvmn.org).

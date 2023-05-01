@@ -33,6 +33,7 @@ class ImageAdmin(SortableAdminMixin, admin.ModelAdmin):
 
 @admin.register(Place)
 class PlaceAdmin(SortableAdminBase, admin.ModelAdmin):
+    search_fields = ['title']
     inlines = [
         MembershipInline
     ]
