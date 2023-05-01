@@ -1,6 +1,9 @@
 from django.http import HttpResponse
 from django.template import loader
+from django.urls import reverse
 from places.models import Place
+from place.views import get_place
+
 
 def get_places():
     places = {
@@ -8,8 +11,7 @@ def get_places():
         "features": [],
     }
 
-    places_contents = Place.objects.all()
-    for place in places_contents:
+    for place in Place.objects.all():
         places["features"].append(
             {
                 "type": place.type,
@@ -20,7 +22,7 @@ def get_places():
                 "properties": {
                     "title": place.map_title,
                     "placeId": place.place_id,
-                    "detailsUrl": place.details_url,
+                    "detailsUrl": reverse(get_place, args=[place.id])
                 }
             }
         )
