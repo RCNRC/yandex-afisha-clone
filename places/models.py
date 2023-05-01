@@ -34,9 +34,10 @@ class Place(models.Model):
 
 
 class Image(models.Model):
-    special_id = models.IntegerField(
-        null=True,
-        blank=True,
+    special_id = models.PositiveIntegerField(
+        default=0,
+        null=False,
+        blank=False,
     )
     place = models.ForeignKey(
         Place,
@@ -49,6 +50,9 @@ class Image(models.Model):
         width_field=None,
         max_length=210,
     )
+
+    class Meta:
+        ordering = ['special_id']
 
     def __str__(self):
         return f"{self.special_id} {self.place.title}"
