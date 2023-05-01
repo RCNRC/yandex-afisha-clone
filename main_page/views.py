@@ -1,39 +1,30 @@
 from django.http import HttpResponse
 from django.template import loader
+from places.models import Place
 
 def get_places():
     places = {
         "type": "FeatureCollection",
         "features": [],
     }
-    places["features"].append(
-        {
-          "type": "Feature",
-          "geometry": {
-            "type": "Point",
-            "coordinates": [37.62, 55.793676]
-          },
-          "properties": {
-            "title": "«Легенды Москвы",
-            "placeId": "moscow_legends",
-            "detailsUrl": "static/places/moscow_legends.json"
-          }
-        }
-    )
-    places["features"].append(
-        {
-          "type": "Feature",
-          "geometry": {
-            "type": "Point",
-            "coordinates": [37.64, 55.753676]
-          },
-          "properties": {
-            "title": "Крыши24.рф",
-            "placeId": "roofs24",
-            "detailsUrl": "static/places/roofs24.json"
-          }
-        }
-    )
+
+    places_contents = Place.objects.all()
+    for place in places_contents:
+        places["features"].append(
+            {
+                "type": place.type,
+                "geometry": {
+                    "type": place.geometry_type,
+                    "coordinates": [place.lng, place.lat]
+                },
+                "properties": {
+                    "title": place.map_title,
+                    "placeId": place.place_id,
+                    "detailsUrl": place.details_url,
+                }
+            }
+        )
+        
     return places
 
 def index(request):

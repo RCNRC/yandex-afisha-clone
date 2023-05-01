@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from places import models
+from place.views import get_place
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -24,4 +25,5 @@ urlpatterns = [
     #path('', views.index),
     path('', include('main_page.urls')),
     path('admin/', admin.site.urls),
+    path('places/<int:place_id>', get_place)
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

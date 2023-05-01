@@ -2,6 +2,25 @@ from django.db import models
 
 
 class Place(models.Model):
+    type = models.CharField(
+        null=True,
+        max_length=100,
+    )
+    geometry_type = models.CharField(
+        null=True,
+        max_length=100,
+    )
+    map_title = models.CharField(
+        null=True,
+        max_length=100,
+    )
+    place_id = models.CharField(
+        null=True,
+        max_length=100,
+    )
+    details_url = models.TextField(
+        null=True,
+    )
     title = models.CharField(
         max_length=201
     )
@@ -12,6 +31,7 @@ class Place(models.Model):
 
     def __str__(self):
         return f"{self.title}"
+
 
 class Image(models.Model):
     special_id = models.IntegerField(
