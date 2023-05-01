@@ -21,15 +21,17 @@ py -m pip download --destination-directory DIR -r requirements.txt
 Чтобы запустить backend нужно:
 1. положить все статичные файлы (весь [frontend](https://github.com/devmanorg/where-to-go-frontend/)) в директорию `static`,
 2. создайте директорию `media` в корне проекта,
-3. находясь в корневой директории запустить backend командой: `python3 manage.py runserver --insecure`,
-4. перейдите на сайт http://127.0.0.1:8000/
+3. выполните команду `python3 manage.py migrate`,
+4. находясь в корневой директории запустить backend командой: `python3 manage.py runserver --insecure`,
+5. перейдите на сайт http://127.0.0.1:8000/
 
 Для работы с БД:
 1. создате суперпользователя командой `python manage.py createsuperuser`,
 2. пройдите все шаги,
-3. запустите сервер `python3 manage.py runserver --insecure`,
-4. перейдите на сайт http://127.0.0.1:8000/admin
-5. войдите под своими установленными логином и паролем
+3. выполните команду `python3 manage.py migrate`,
+4. запустите сервер `python3 manage.py runserver --insecure`,
+5. перейдите на сайт http://127.0.0.1:8000/admin
+6. войдите под своими установленными логином и паролем
 
 ## Параметры для дальнейшего развёртывания
 
