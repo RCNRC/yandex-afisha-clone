@@ -1,6 +1,6 @@
 # yandex-afisha-clone
 
-Это backend часть для [frontend](https://github.com/devmanorg/where-to-go-frontend/).
+Это backend часть для [frontend](https://github.com/devmanorg/where-to-go-frontend/). Пример работающего сайта представлен на этом [сайте](https://testserverdvmn.pythonanywhere.com/)
 
 ## Установка
 
@@ -19,16 +19,18 @@ py -m pip download --destination-directory DIR -r requirements.txt
 ## Пройстой запуск
 
 Чтобы запустить backend нужно:
-1. положить все статичные файлы (весь [frontend](https://github.com/devmanorg/where-to-go-frontend/)) в директорию `static`,
-2. создайте директорию `media` в корне проекта,
+1. положить все статичные файлы (весь [frontend](https://github.com/devmanorg/where-to-go-frontend/)) в директорию `asserts`,
+2. создайте директории `media` и `static` в корне проекта,
 3. выполните команду `python3 manage.py migrate`,
-4. находясь в корневой директории запустить backend командой: `python3 manage.py runserver --insecure`,
-5. перейдите на сайт http://127.0.0.1:8000/
+4. выполните команду `python3 manage.py collectstatic`,
+5. находясь в корневой директории запустить backend командой: `python3 manage.py runserver --insecure`,
+6. перейдите на сайт http://127.0.0.1:8000/
 
 Для работы с БД:
 1. создате суперпользователя командой `python manage.py createsuperuser`,
 2. пройдите все шаги,
 3. выполните команду `python3 manage.py migrate`,
+2. выполните команду `python3 manage.py collectstatic`,
 4. запустите сервер `python3 manage.py runserver --insecure`,
 5. перейдите на сайт http://127.0.0.1:8000/admin
 6. войдите под своими установленными логином и паролем
