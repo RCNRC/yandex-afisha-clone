@@ -1,6 +1,6 @@
 # yandex-afisha-clone
 
-Это backend часть для [frontend](https://github.com/devmanorg/where-to-go-frontend/). Пример работающего сайта представлен на этом [сайте](https://testserverdvmn.pythonanywhere.com/)
+Это backend часть для [frontend](https://github.com/devmanorg/where-to-go-frontend/). Пример работающего [сайта](https://testserverdvmn.pythonanywhere.com/).
 
 ## Установка
 
@@ -16,7 +16,7 @@ py -m pip download --destination-directory DIR -r requirements.txt
 
 В конце сгенерируёте секретный ключ `secret_key`, в котором будет не меньше 50 символов и не меньше 5 уникальных символов, создайте локальную переменную командой `SECRET_KEY="secret_key"` и экспортируёте его во внешнее пространство командой: `export SECRET_KEY`.
 
-## Пройстой запуск
+## Запуск на локальном сервере
 
 Чтобы запустить backend нужно:
 1. положить все статичные файлы (весь [frontend](https://github.com/devmanorg/where-to-go-frontend/)) в директорию `asserts`,
@@ -26,7 +26,7 @@ py -m pip download --destination-directory DIR -r requirements.txt
 5. находясь в корневой директории запустить backend командой: `python3 manage.py runserver --insecure`,
 6. перейдите на сайт http://127.0.0.1:8000/
 
-Для работы с БД:
+Для работы с сайтом как суперпользователь:
 1. создате суперпользователя командой `python manage.py createsuperuser`,
 2. пройдите все шаги,
 3. выполните команду `python3 manage.py migrate`,
@@ -35,8 +35,9 @@ py -m pip download --destination-directory DIR -r requirements.txt
 5. перейдите на сайт http://127.0.0.1:8000/admin
 6. войдите под своими установленными логином и паролем
 
-При наличии ссылки на .json файл, то данные из него можно легко поместить в БД при помощи доп команды: `python3 manage.py load_place "https://path/to/json/file.json"`.  
-Пример .json файла:
+## Команда для загрузки данных в БД
+
+При наличии ссылки на .json файл, данные из него можно легко поместить в БД при помощи доп команды: `python3 manage.py load_place "https://path/to/json/file.json"`, где по ссылке `https://path/to/json/file.json` хранится содержимое удалённого .json файла:
 ```json
 {
     "title": "Останкинская телебашня",
