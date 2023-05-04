@@ -6,7 +6,6 @@ __pycache__/
 # static files
 media/
 asserts/
-static/
 
 # C extensions
 *.so

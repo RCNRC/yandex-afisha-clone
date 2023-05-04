@@ -19,12 +19,11 @@ py -m pip download --destination-directory DIR -r requirements.txt
 ## Запуск на локальном сервере
 
 Чтобы запустить backend нужно:
-1. положить все статичные файлы (весь [frontend](https://github.com/devmanorg/where-to-go-frontend/)) в директорию `asserts`,
-2. создайте директории `media` и `static` в корне проекта,
-3. выполните команду `python3 manage.py migrate`,
-4. выполните команду `python3 manage.py collectstatic`,
-5. находясь в корневой директории запустить backend командой: `python3 manage.py runserver --insecure`,
-6. перейдите на сайт http://127.0.0.1:8000/
+1. если нужно использовать другой frontend, то положить все статичные файлы в директорию `static`,
+2. выполните команду `python3 manage.py migrate`,
+3. выполните команду `python3 manage.py collectstatic`,
+4. находясь в корневой директории запустить backend командой: `python3 manage.py runserver --insecure`,
+5. перейдите на сайт http://127.0.0.1:8000/
 
 Для работы с сайтом как суперпользователь:
 1. создате суперпользователя командой `python manage.py createsuperuser`,
