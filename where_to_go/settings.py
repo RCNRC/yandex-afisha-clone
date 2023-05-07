@@ -12,7 +12,11 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
+from environs import Env
 
+
+env = Env()
+env.read_env()
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -23,19 +27,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ['SECRET_KEY']
+SECRET_KEY = env.str('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False if 'DEBUG' in os.environ else True
+DEBUG = env.bool('DEBUG', True)
 
-ALLOWED_HOSTS = os.environ['ALLOWED_HOSTS'].split(',') if 'ALLOWED_HOSTS' in os.environ else []
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', [])
 
-SECURE_HSTS_SECONDS = int(os.environ['SECURE_HSTS_SECONDS']) if 'SECURE_HSTS_SECONDS' in os.environ else 0
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True if 'SECURE_HSTS_INCLUDE_SUBDOMAINS' in os.environ else False
-SECURE_HSTS_PRELOAD = True if 'SECURE_HSTS_PRELOAD' in os.environ else False
-SECURE_SSL_REDIRECT = True if 'SECURE_SSL_REDIRECT' in os.environ else False
-SESSION_COOKIE_SECURE = True if 'SESSION_COOKIE_SECURE' in os.environ else False
-CSRF_COOKIE_SECURE = True if 'CSRF_COOKIE_SECURE' in os.environ else False
+SECURE_HSTS_SECONDS = env.int('SECURE_HSTS_SECONDS', 0)
+SECURE_HSTS_INCLUDE_SUBDOMAINS = env.bool('SECURE_HSTS_INCLUDE_SUBDOMAINS', False)
+SECURE_HSTS_PRELOAD = env.bool('SECURE_HSTS_PRELOAD', False)
+SECURE_SSL_REDIRECT = env.bool('SECURE_SSL_REDIRECT', False)
+SESSION_COOKIE_SECURE = env.bool('SESSION_COOKIE_SECURE', False)
+CSRF_COOKIE_SECURE = env.bool('CSRF_COOKIE_SECURE', False)
 
 # Application definition
 
