@@ -11,7 +11,7 @@ python -m pip install -r requirements.txt
 ```
 2. Для Windows:
 ```commandline
-py -m pip download --destination-directory DIR -r requirements.txt
+py -m pip install --destination-directory DIR -r requirements.txt
 ```
 
 В конце сгенерируёте секретный ключ `secret_key`, в котором будет не меньше 50 символов и не меньше 5 уникальных символов, создайте локальную переменную командой `SECRET_KEY="secret_key"` и экспортируёте его во внешнее пространство командой: `export SECRET_KEY`.
