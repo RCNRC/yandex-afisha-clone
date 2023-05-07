@@ -14,14 +14,14 @@ def get_places():
     for place in Place.objects.all():
         places["features"].append(
             {
-                "type": place.type,
+                "type": "Feature",
                 "geometry": {
-                    "type": place.geometry_type,
+                    "type": "Point",
                     "coordinates": [place.lng, place.lat]
                 },
                 "properties": {
-                    "title": place.map_title,
-                    "placeId": place.place_id,
+                    "title": place.title,
+                    "placeId": place.title,
                     "detailsUrl": reverse(get_place, args=[place.id])
                 }
             }
