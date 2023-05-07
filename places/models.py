@@ -25,8 +25,6 @@ class Place(models.Model):
 class Image(models.Model):
     serial_number = models.PositiveIntegerField(
         default=0,
-        null=False,
-        blank=False,
     )
     place = models.ForeignKey(
         Place,
