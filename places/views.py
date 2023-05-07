@@ -29,6 +29,7 @@ def get_places():
         
     return places
 
+
 def index(request):
     template = loader.get_template('index.html')
     context = {
