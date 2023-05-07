@@ -7,10 +7,10 @@ from adminsortable2.admin import SortableAdminMixin, SortableAdminBase, Sortable
 class MembershipInline(SortableStackedInline):
     model = Image
     extra = 0
-    readonly_fields = ["headshot_image"]
-    fields = ("serial_number", "headshot_image", "content", "place")
+    readonly_fields = ["preview_image"]
+    fields = ("serial_number", "preview_image", "content", "place")
 
-    def headshot_image(self, obj):
+    def preview_image(self, obj):
         max_heihght = 200
         return format_html(
             '<img src="{url}" style="max-height:{height}px" />'.format(
