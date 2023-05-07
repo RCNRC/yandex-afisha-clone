@@ -31,10 +31,10 @@ class Image(models.Model):
     place = models.ForeignKey(
         Place,
         on_delete=models.CASCADE,
-        related_name="images"
+        related_name='images'
     )
     content = models.ImageField(
-        upload_to="./images",
+        upload_to='./images',
         height_field=None,
         width_field=None,
         max_length=210,
@@ -44,4 +44,4 @@ class Image(models.Model):
         ordering = ['serial_number']
 
     def __str__(self):
-        return f"{self.serial_number} {self.place.title}"
+        return f'{self.serial_number} {self.place.title}'
