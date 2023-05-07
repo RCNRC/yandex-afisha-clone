@@ -23,7 +23,7 @@ class Place(models.Model):
 
 
 class Image(models.Model):
-    special_id = models.PositiveIntegerField(
+    serial_number = models.PositiveIntegerField(
         default=0,
         null=False,
         blank=False,
@@ -41,7 +41,7 @@ class Image(models.Model):
     )
 
     class Meta:
-        ordering = ['special_id']
+        ordering = ['serial_number']
 
     def __str__(self):
-        return f"{self.special_id} {self.place.title}"
+        return f"{self.serial_number} {self.place.title}"

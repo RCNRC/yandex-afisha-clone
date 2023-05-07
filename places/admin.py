@@ -8,7 +8,7 @@ class MembershipInline(SortableStackedInline):
     model = Image
     extra = 0
     readonly_fields = ["headshot_image"]
-    fields = ("special_id", "headshot_image", "content", "place")
+    fields = ("serial_number", "headshot_image", "content", "place")
 
     def headshot_image(self, obj):
         max_heihght = 200
