@@ -10,11 +10,11 @@ class MembershipInline(SortableStackedInline):
     readonly_fields = ["preview_image"]
     fields = ("serial_number", "preview_image", "content", "place")
 
-    def preview_image(self, obj):
+    def preview_image(self, image):
         max_heihght = 200
         return format_html(
             '<img src="{url}" style="max-height:{height}px" />'.format(
-                url=obj.content.url,
+                url=image.content.url,
                 height=max_heihght,
             )
         )
