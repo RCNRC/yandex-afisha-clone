@@ -12,16 +12,10 @@ class MembershipInline(SortableStackedInline):
 
     def headshot_image(self, obj):
         max_heihght = 200
-        max_width = int(obj.content.width / obj.content.height * 200)
         return format_html(
-            '<img src="{url}" width="{width}" height={height} />'.format(
+            '<img src="{url}" style="max-height:{height}px" />'.format(
                 url=obj.content.url,
-                width=obj.content.width
-                if obj.content.width < max_width
-                else max_width,
-                height=obj.content.height
-                if obj.content.height < max_heihght
-                else max_heihght,
+                height=max_heihght,
             )
         )
     
