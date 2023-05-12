@@ -1,8 +1,24 @@
 from django.http import HttpResponse
 from django.template import loader
 from django.urls import reverse
+from django.shortcuts import get_object_or_404
+from django.http import JsonResponse
 from places.models import Place
-from place.views import get_place
+
+
+def get_place(request, place_id):
+    place = get_object_or_404(Place, id=place_id)
+    place_to_export = {
+        "title": place.title,
+        "imgs": [image.content.url for image in place.images.all()],
+        "description_short": place.description_short,
+        "description_long": place.description_long,
+        "coordinates": {
+            "lat": place.lat,
+            "lng": place.lng,
+        },
+    }
+    return JsonResponse(place_to_export)
 
 
 def get_places():
@@ -26,7 +42,7 @@ def get_places():
                 }
             }
         )
-        
+
     return places
 
 
