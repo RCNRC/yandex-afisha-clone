@@ -32,11 +32,6 @@ class Command(BaseCommand):
                 description_long=place_import["description_long"],
                 lng=place_import["coordinates"]["lng"],
                 lat=place_import["coordinates"]["lat"],
-                type="Feature",
-                geometry_type="Point",
-                map_title=place_import["title"],
-                place_id="1",
-                details_url=url,
             )
             if not created:
                 self.stdout.write("Creation model failure", ending='\n')
@@ -44,7 +39,7 @@ class Command(BaseCommand):
         except requests.HTTPError:
             self.stdout.write("Request failed", ending='\n')
             return
-        
+
         for image_url in place_import["imgs"]:
             try:
                 self.import_image(image_url, place)
