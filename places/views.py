@@ -21,12 +21,13 @@ def get_place(request, place_id):
     return JsonResponse(place_to_export)
 
 
-def get_places():
+def index(request):
+    template = loader.get_template('index.html')
+
     places = {
         'type': 'FeatureCollection',
         'features': [],
     }
-
     for place in Place.objects.all():
         places['features'].append(
             {
@@ -43,13 +44,8 @@ def get_places():
             }
         )
 
-    return places
-
-
-def index(request):
-    template = loader.get_template('index.html')
     context = {
-        'places': get_places()
+        'places': places,
     }
     rendered_page = template.render(context, request)
     return HttpResponse(rendered_page)
