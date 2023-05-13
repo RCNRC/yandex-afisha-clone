@@ -9,13 +9,13 @@ from places.models import Place
 def get_place(request, place_id):
     place = get_object_or_404(Place, id=place_id)
     place_to_export = {
-        "title": place.title,
-        "imgs": [image.content.url for image in place.images.all()],
-        "description_short": place.description_short,
-        "description_long": place.description_long,
-        "coordinates": {
-            "lat": place.lat,
-            "lng": place.lng,
+        'title': place.title,
+        'imgs': [image.content.url for image in place.images.all()],
+        'description_short': place.description_short,
+        'description_long': place.description_long,
+        'coordinates': {
+            'lat': place.lat,
+            'lng': place.lng,
         },
     }
     return JsonResponse(place_to_export)
@@ -23,22 +23,22 @@ def get_place(request, place_id):
 
 def get_places():
     places = {
-        "type": "FeatureCollection",
-        "features": [],
+        'type': 'FeatureCollection',
+        'features': [],
     }
 
     for place in Place.objects.all():
-        places["features"].append(
+        places['features'].append(
             {
-                "type": "Feature",
-                "geometry": {
-                    "type": "Point",
-                    "coordinates": [place.lng, place.lat]
+                'type': 'Feature',
+                'geometry': {
+                    'type': 'Point',
+                    'coordinates': [place.lng, place.lat]
                 },
-                "properties": {
-                    "title": place.title,
-                    "placeId": place.title,
-                    "detailsUrl": reverse(get_place, args=[place.id])
+                'properties': {
+                    'title': place.title,
+                    'placeId': place.title,
+                    'detailsUrl': reverse(get_place, args=[place.id])
                 }
             }
         )
@@ -49,7 +49,7 @@ def get_places():
 def index(request):
     template = loader.get_template('index.html')
     context = {
-        "places": get_places()
+        'places': get_places()
     }
     rendered_page = template.render(context, request)
     return HttpResponse(rendered_page)

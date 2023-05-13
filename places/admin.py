@@ -1,14 +1,18 @@
 from django.contrib import admin
 from django.utils.html import format_html
+from adminsortable2.admin import (
+    SortableAdminMixin,
+    SortableAdminBase,
+    SortableStackedInline,
+)
 from .models import Place, Image
-from adminsortable2.admin import SortableAdminMixin, SortableAdminBase, SortableStackedInline, SortableTabularInline
 
 
 class MembershipInline(SortableStackedInline):
     model = Image
     extra = 0
-    readonly_fields = ["preview_image"]
-    fields = ("serial_number", "preview_image", "content", "place")
+    readonly_fields = ['preview_image']
+    fields = ('serial_number', 'preview_image', 'content', 'place')
 
     def preview_image(self, image):
         max_heihght = 200
@@ -18,12 +22,12 @@ class MembershipInline(SortableStackedInline):
                 height=max_heihght,
             )
         )
-    
+
 
 @admin.register(Image)
 class ImageAdmin(SortableAdminMixin, admin.ModelAdmin):
     pass
-    
+
 
 @admin.register(Place)
 class PlaceAdmin(SortableAdminBase, admin.ModelAdmin):
