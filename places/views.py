@@ -1,7 +1,5 @@
-from django.http import HttpResponse
-from django.template import loader
 from django.urls import reverse
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from django.http import JsonResponse
 from places.models import Place
 
@@ -22,8 +20,6 @@ def get_place(request, place_id):
 
 
 def index(request):
-    template = loader.get_template('index.html')
-
     places = {
         'type': 'FeatureCollection',
         'features': [],
@@ -47,5 +43,4 @@ def index(request):
     context = {
         'places': places,
     }
-    rendered_page = template.render(context, request)
-    return HttpResponse(rendered_page)
+    return render(request, 'index.html', context=context)
