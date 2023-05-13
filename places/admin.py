@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.utils.html import format_html
+from django.utils.safestring import mark_safe 
 from adminsortable2.admin import (
     SortableAdminMixin,
     SortableAdminBase,
@@ -17,10 +18,9 @@ class MembershipInline(SortableStackedInline):
     def preview_image(self, image):
         max_heihght = 200
         return format_html(
-            '<img src="{url}" style="max-height:{height}px" />'.format(
-                url=image.content.url,
-                height=max_heihght,
-            )
+            '<img src="{}" style="max-height:{}px" />',
+            mark_safe(image.content.url),
+            mark_safe(max_heihght),
         )
 
 
