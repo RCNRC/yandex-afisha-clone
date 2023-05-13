@@ -8,11 +8,9 @@ class Place(models.Model):
         max_length=201
     )
     description_short = models.TextField(
-        null=True,
         blank=True,
     )
     description_long = HTMLField(
-        null=True,
         blank=True,
     )
     lng = models.FloatField()
