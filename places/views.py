@@ -22,10 +22,7 @@ def get_place(request, place_id):
 def index(request):
     places = {
         'type': 'FeatureCollection',
-        'features': [],
-    }
-    for place in Place.objects.all():
-        places['features'].append(
+        'features': [
             {
                 'type': 'Feature',
                 'geometry': {
@@ -38,7 +35,9 @@ def index(request):
                     'detailsUrl': reverse(get_place, args=[place.id])
                 }
             }
-        )
+            for place in Place.objects.all()
+        ],
+    }
 
     context = {
         'places': places,
