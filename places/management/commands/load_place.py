@@ -31,10 +31,12 @@ class Command(BaseCommand):
             place_import = response.json()
             place, created = Place.objects.get_or_create(
                 title=place_import['title'],
-                description_short=place_import['description_short'],
-                description_long=place_import['description_long'],
-                lng=place_import['coordinates']['lng'],
-                lat=place_import['coordinates']['lat'],
+                defaults={
+                    'description_short': place_import['description_short'],
+                    'description_long': place_import['description_long'],
+                    'lng': place_import['coordinates']['lng'],
+                    'lat': place_import['coordinates']['lat'],
+                },
             )
             if not created:
                 self.stdout.write('Creation model failure', ending='\n')
