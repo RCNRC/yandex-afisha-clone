@@ -5,15 +5,15 @@ from places.models import Place
 
 
 def get_place(request, place_id):
-    place = get_object_or_404(Place, id=place_id)
-    place_to_export = {
-        'title': place.title,
-        'imgs': [image.content.url for image in place.images.all()],
-        'description_short': place.description_short,
-        'description_long': place.description_long,
+    place_record = get_object_or_404(Place, id=place_id)
+    place = {
+        'title': place_record.title,
+        'imgs': [image.content.url for image in place_record.images.all()],
+        'description_short': place_record.description_short,
+        'description_long': place_record.description_long,
         'coordinates': {
-            'lat': place.lat,
-            'lng': place.lng,
+            'lat': place_record.lat,
+            'lng': place_record.lng,
         },
     }
     dumps_params = {
@@ -21,7 +21,7 @@ def get_place(request, place_id):
         'indent': 2,
     }
     return JsonResponse(
-        place_to_export,
+        place,
         safe=False,
         json_dumps_params=dumps_params,
     )
