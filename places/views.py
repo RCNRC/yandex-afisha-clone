@@ -16,7 +16,15 @@ def get_place(request, place_id):
             'lng': place.lng,
         },
     }
-    return JsonResponse(place_to_export)
+    dumps_params = {
+        'ensure_ascii': False,
+        'indent': 2,
+    }
+    return JsonResponse(
+        place_to_export,
+        safe=False,
+        json_dumps_params=dumps_params,
+    )
 
 
 def index(request):
