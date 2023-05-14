@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand, CommandError
 from django.core.files.base import ContentFile
-from places.models import Place, Image
 import requests
+from places.models import Place, Image
 
 
 class Command(BaseCommand):
@@ -16,7 +16,11 @@ class Command(BaseCommand):
         image = Image.objects.create(
             place=self_place,
         )
-        image.content.save(image_url.split('/')[-1], ContentFile(image_content), save=True)
+        image.content.save(
+            image_url.split('/')[-1],
+            ContentFile(image_content),
+            save=True
+        )
 
     def add_arguments(self, parser):
         parser.add_argument('url', type=str)
@@ -42,17 +46,11 @@ class Command(BaseCommand):
                 self.stdout.write('Creation model failure', ending='\n')
                 return
         except requests.HTTPError as error:
-            self.stdout.write(
-                'Request failed: ' + error.response.text,
-                ending='\n'
-            )
+            self.stdout.write('Request failed: ' + error.response.text)
             return
 
         for image_url in place_import['imgs']:
             try:
                 self.import_image(image_url, place)
             except requests.HTTPError as error:
-                self.stdout.write(
-                    'Request image failed' + error.response.text,
-                    ending='\n'
-                )
+                self.stdout.write('Request image failed' + error.response.text)
