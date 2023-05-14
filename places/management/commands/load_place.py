@@ -36,8 +36,10 @@ class Command(BaseCommand):
             place, created = Place.objects.get_or_create(
                 title=place_import['title'],
                 defaults={
-                    'description_short': place_import['description_short'],
-                    'description_long': place_import['description_long'],
+                    'description_short': place_import['description_short']
+                    if 'description_short' in place_import else '',
+                    'description_long': place_import['description_long']
+                    if 'description_long' in place_import else '',
                     'lng': place_import['coordinates']['lng'],
                     'lat': place_import['coordinates']['lat'],
                 },
@@ -48,6 +50,10 @@ class Command(BaseCommand):
         except requests.HTTPError as error:
             self.stdout.write('Request failed: ' + error.response.text)
             return
+
+        if 'imgs' not in place_import or not place_import['imgs']:
+            place.images.set([])
+            place.save()
 
         for image_url in place_import['imgs']:
             try:
