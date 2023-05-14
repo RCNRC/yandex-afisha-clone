@@ -12,14 +12,13 @@ class Command(BaseCommand):
         response.raise_for_status()
         if 'error' in response:
             raise requests.exceptions.HTTPError(response['error'])
-        image_content = response.content
-        image = Image.objects.create(
-            place=self_place,
+        image_content = ContentFile(
+            content=response.content,
+            name=image_url.split('/')[-1]
         )
-        image.content.save(
-            image_url.split('/')[-1],
-            ContentFile(image_content),
-            save=True
+        Image.objects.create(
+            place=self_place,
+            content=image_content
         )
 
     def add_arguments(self, parser):
