@@ -16,13 +16,10 @@ class Command(BaseCommand):
         image.content.save(image_url.split('/')[-1], ContentFile(image_content), save=True)
 
     def add_arguments(self, parser):
-        parser.add_argument('url', nargs=1, type=str)
+        parser.add_argument('url', type=str)
 
     def handle(self, *args, **options):
-        url = options['url'][0]
-        if not url:
-            self.stdout.write('No file founded', ending='\n')
-            return
+        url = options['url']
         try:
             response = requests.get(url)
             place_import = response.json()
