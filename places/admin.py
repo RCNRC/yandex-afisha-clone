@@ -16,11 +16,11 @@ class MembershipInline(SortableStackedInline):
     fields = ('serial_number', 'preview_image', 'content', 'place')
 
     def preview_image(self, image):
-        max_heihght = 200
+        max_height = 200
         return format_html(
             '<img src="{}" style="max-height:{}px" />',
             image.content.url,
-            max_heihght,
+            max_height,
         )
 
 
