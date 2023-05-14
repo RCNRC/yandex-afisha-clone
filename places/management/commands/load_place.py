@@ -9,6 +9,9 @@ class Command(BaseCommand):
 
     def import_image(self, image_url: str, self_place: Place):
         response = requests.get(image_url)
+        response.raise_for_status()
+        if 'error' in response:
+            raise requests.exceptions.HTTPError(response['error'])
         image_content = response.content
         image = Image.objects.create(
             place=self_place,
@@ -22,6 +25,9 @@ class Command(BaseCommand):
         url = options['url']
         try:
             response = requests.get(url)
+            response.raise_for_status()
+            if 'error' in response:
+                raise requests.exceptions.HTTPError(response['error'])
             place_import = response.json()
             place, created = Place.objects.get_or_create(
                 title=place_import['title'],
@@ -33,12 +39,18 @@ class Command(BaseCommand):
             if not created:
                 self.stdout.write('Creation model failure', ending='\n')
                 return
-        except requests.HTTPError:
-            self.stdout.write('Request failed', ending='\n')
+        except requests.HTTPError as error:
+            self.stdout.write(
+                'Request failed: ' + error.response.text,
+                ending='\n'
+            )
             return
 
         for image_url in place_import['imgs']:
             try:
                 self.import_image(image_url, place)
-            except requests.HTTPError:
-                self.stdout.write('Request image failed', ending='\n')
+            except requests.HTTPError as error:
+                self.stdout.write(
+                    'Request image failed' + error.response.text,
+                    ending='\n'
+                )
