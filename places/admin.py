@@ -19,8 +19,8 @@ class MembershipInline(SortableStackedInline):
         max_heihght = 200
         return format_html(
             '<img src="{}" style="max-height:{}px" />',
-            mark_safe(image.content.url),
-            mark_safe(max_heihght),
+            image.content.url,
+            max_heihght,
         )
 
 
