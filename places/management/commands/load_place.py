@@ -44,7 +44,7 @@ class Command(BaseCommand):
                 },
             )
             if not created:
-                self.stdout.write('Creation model failure', ending='\n')
+                self.stdout.write('Creation model failure')
                 return
         except requests.HTTPError as error:
             self.stdout.write(f'Request failed: {error.response.text}')
@@ -58,4 +58,6 @@ class Command(BaseCommand):
             try:
                 self.import_image(image_url, place)
             except requests.HTTPError as error:
-                self.stdout.write(f'Request image failed {error.response.text}')
+                self.stdout.write(
+                    f'Request image failed {error.response.text}'
+                )
