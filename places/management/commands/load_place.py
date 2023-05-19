@@ -31,18 +31,18 @@ class Command(BaseCommand):
             response.raise_for_status()
             if 'error' in response:
                 raise requests.exceptions.HTTPError(response['error'])
-            place_import = response.json()
+            place_raw = response.json()
             place, created = Place.objects.get_or_create(
-                title=place_import['title'],
+                title=place_raw['title'],
                 defaults={
-                    'description_short': place_import.get(
+                    'description_short': place_raw.get(
                         'description_short', ''
                     ),
-                    'description_long': place_import.get(
+                    'description_long': place_raw.get(
                         'description_long', ''
                     ),
-                    'lng': place_import['coordinates']['lng'],
-                    'lat': place_import['coordinates']['lat'],
+                    'lng': place_raw['coordinates']['lng'],
+                    'lat': place_raw['coordinates']['lat'],
                 },
             )
             if not created:
@@ -52,11 +52,11 @@ class Command(BaseCommand):
             self.stdout.write(f'Request failed: {error.response.text}')
             return
 
-        if 'imgs' not in place_import or not place_import['imgs']:
+        if 'imgs' not in place_raw or not place_raw['imgs']:
             place.images.set([])
             place.save()
 
-        for image_url in place_import.get('imgs', []):
+        for image_url in place_raw.get('imgs', []):
             try:
                 self.import_image(image_url, place)
             except requests.HTTPError as error:
