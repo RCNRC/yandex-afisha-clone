@@ -47,7 +47,7 @@ class Command(BaseCommand):
                 self.stdout.write('Creation model failure', ending='\n')
                 return
         except requests.HTTPError as error:
-            self.stdout.write('Request failed: ' + error.response.text)
+            self.stdout.write(f'Request failed: {error.response.text}')
             return
 
         if 'imgs' not in place_import or not place_import['imgs']:
@@ -58,4 +58,4 @@ class Command(BaseCommand):
             try:
                 self.import_image(image_url, place)
             except requests.HTTPError as error:
-                self.stdout.write('Request image failed' + error.response.text)
+                self.stdout.write(f'Request image failed {error.response.text}')
