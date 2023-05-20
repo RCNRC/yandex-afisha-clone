@@ -8,7 +8,7 @@ from places.models import Place, Image
 class Command(BaseCommand):
     help = 'Importing remote json files in Place model'
 
-    def import_image(self, image_url: str, self_place: Place):
+    def import_image(self, image_url: str, place: Place):
         response = requests.get(image_url)
         response.raise_for_status()
         image_content = ContentFile(
@@ -16,7 +16,7 @@ class Command(BaseCommand):
             name=image_url.split('/')[-1]
         )
         Image.objects.create(
-            place=self_place,
+            place=place,
             content=image_content
         )
 
