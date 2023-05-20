@@ -47,9 +47,6 @@ class Command(BaseCommand):
             if not created:
                 self.stdout.write('The record of the place with the same title is already exists')
                 return
-            if 'imgs' not in place_raw or not place_raw['imgs']:
-                place.images.set([])
-                place.save()
             for image_url in place_raw.get('imgs', []):
                 self.import_image(image_url, place)
         except requests.HTTPError as error:
