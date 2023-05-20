@@ -45,7 +45,7 @@ class Command(BaseCommand):
                 },
             )
             if not created:
-                self.stdout.write('Creation model failure')
+                self.stdout.write('The record of the place with the same title is already exists')
                 return
             if 'imgs' not in place_raw or not place_raw['imgs']:
                 place.images.set([])
