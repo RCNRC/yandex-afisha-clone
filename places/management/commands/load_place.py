@@ -1,4 +1,5 @@
-from django.core.management.base import BaseCommand, CommandError
+import json
+from django.core.management.base import BaseCommand
 from django.core.files.base import ContentFile
 import requests
 from places.models import Place, Image
@@ -10,8 +11,6 @@ class Command(BaseCommand):
     def import_image(self, image_url: str, self_place: Place):
         response = requests.get(image_url)
         response.raise_for_status()
-        if 'error' in response:
-            raise requests.exceptions.HTTPError(response['error'])
         image_content = ContentFile(
             content=response.content,
             name=image_url.split('/')[-1]
@@ -29,9 +28,9 @@ class Command(BaseCommand):
         try:
             response = requests.get(url)
             response.raise_for_status()
-            if 'error' in response:
-                raise requests.exceptions.HTTPError(response['error'])
             place_raw = response.json()
+            if 'error' in place_raw:
+                raise requests.exceptions.HTTPError(place_raw['error'])
             place, created = Place.objects.get_or_create(
                 title=place_raw['title'],
                 defaults={
@@ -48,18 +47,14 @@ class Command(BaseCommand):
             if not created:
                 self.stdout.write('Creation model failure')
                 return
+            if 'imgs' not in place_raw or not place_raw['imgs']:
+                place.images.set([])
+                place.save()
+            for image_url in place_raw.get('imgs', []):
+                self.import_image(image_url, place)
         except requests.HTTPError as error:
             self.stdout.write(f'Request failed: {error.response.text}')
             return
-
-        if 'imgs' not in place_raw or not place_raw['imgs']:
-            place.images.set([])
-            place.save()
-
-        for image_url in place_raw.get('imgs', []):
-            try:
-                self.import_image(image_url, place)
-            except requests.HTTPError as error:
-                self.stdout.write(
-                    f'Request image failed {error.response.text}'
-                )
+        except (ValueError, json.decoder.JSONDecodeError):
+            self.stdout.write('You are trying download not a json')
+            return
