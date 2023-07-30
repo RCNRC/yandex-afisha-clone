@@ -22,6 +22,7 @@ class Place(models.Model):
         null=True,
     )
     title = models.CharField(
+        unique=True,
         max_length=201
     )
     description_short = models.TextField()
@@ -45,7 +46,7 @@ class Image(models.Model):
         related_name="images"
     )
     content = models.ImageField(
-        upload_to=None,
+        upload_to="./images",
         height_field=None,
         width_field=None,
         max_length=210,
@@ -56,3 +57,4 @@ class Image(models.Model):
 
     def __str__(self):
         return f"{self.special_id} {self.place.title}"
+

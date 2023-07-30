@@ -26,4 +26,4 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('places/<int:place_id>', get_place),
     path('tinymce/', include('tinymce.urls')),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
